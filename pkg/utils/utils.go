@@ -27,7 +27,7 @@ func LogAndDash(lg *log.Logger, s string) {
 	// Creating a new logger on the fly, because we want the same
 	// timestamp, prefix, etc on the local log line, and on the one we
 	// post to the dashboard.
-	log.New(io.MultiWriter(lg.Writer(), &buf), lg.Prefix(), lg.Flags()).Printf(s)
+	log.New(io.MultiWriter(lg.Writer(), &buf), lg.Prefix(), lg.Flags()).Printf("%v", s)
 	go func() {
 		if err := logToDash(buf.String()); err != nil {
 			log.Printf("while logging to data browser: %v", err)
